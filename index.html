@@ -1,0 +1,126 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Site Title</title>
+
+<!--
+  Below are the packages that are necessary to run React on the client-side.
+  First, we are linking to React.js, but in recent versions, the DOM functionality
+  of React has been separated into a seperate library, which we link to with react-dom
+
+  Finally, we also include the babel standalone package. Babel is a transpiler, allowing
+  us to utilize ES6 syntax, and babel will compile this into more browser compatible
+  ES5 code.
+
+  Below we are going to go over some of our React fundamentals and common methods.
+-->
+  <script src="https://unpkg.com/react@latest/dist/react.js"></script>
+  <script src="https://unpkg.com/react-dom@latest/dist/react-dom.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <!--
+    When rendering React elements to the DOM, you want to have some pre-existing
+    div available. Here I am making a simple container div for our React elements
+    to render to.
+  -->
+  <div id="container">
+
+  </div>
+
+  <!--
+    Now, below is our React code. We are wrapping this in a script tag, and specifying
+    that the type is "text/babel", so that the babel script knows what to transpile.
+
+    Don't worry about ES6 syntax differences right now. That is something we will come to
+    later, and for now it won't look very different at all.
+  -->
+  <script type="text/babel">
+
+  /*
+    Below is an example of a simple component. We have boxes.
+    There are a lot of different kinds of boxes, but they all share some similar
+    characteristics. Maybe the share styling, but have different names on them.
+
+    Basic structure:
+
+    function ComponentName(props){
+      return(stuff);
+    }
+
+    Remember, props are how you pass information into your components. You can pass
+    whatever you want in, but they have to behave the same way once they are there.
+
+    Read more about Components and Props here:
+    https://facebook.github.io/react/docs/components-and-props.html
+  */
+    function Box(props){
+      return(
+        <div className="box">
+          <h2>This is a box, and this box is full of {props.name}.</h2>
+          <p>Specifically this is a {props.kind}</p>
+          {props.text}
+        </div>
+      );
+    }
+
+    function Navigation(){
+      return(
+        <ul>
+          <li>Item 1</li>
+          <li>Item 2</li>
+          <li>Item 3</li>
+        </ul>
+      );
+    }
+
+    /*
+      If you want to pass in a larger prop than what you would just want to include inline,
+      you can form the prop outside of the component, and then call to the variable,
+      as you can see here with box_text.
+    */
+    var box_text = <p>There are a lot of different kinds of boxes, but this box is for my cereal</p>;
+
+
+    /*
+      Finally, this App() component is where we assemble the components we have built.
+      We also are creating this inside of a new div, app-container, as well. This will
+      help with organization, and there are also some quirks in React that cause errors
+      when you render without wrapping divs.
+
+      Also, on line 102, you can see {box_text}. This is allowing us to dump the contents
+      of that variable into the text prop. You can pass variables in JSX using {}
+    */
+    function App(){
+      return(
+        <div className="app-container">
+          <h1>Hello World</h1>
+          <Navigation />
+          <Box name="Cereal" kind="Cheerios" text={box_text} />
+          <Box name="Toy" kind="Tonka Truck" />
+          <Box name="Shoe" kind="Air Jordans"/>
+        </div>
+      );
+    }
+
+    /*
+      Finally, I am creating the final element to render using ReactDOM. I could also
+      replace element with just <App /> of course, this would just come down to preference.
+
+      ReactDOM.render() is the method, part of react-dom, that allows us to apply what we have
+      written in React to an element in the already existing DOM. It's worth reading more
+      about the "virtual dom" in React.
+
+      http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/
+    */
+    var element = <App />;
+    ReactDOM.render(
+      element,
+      document.getElementById('container')
+    );
+  </script>
+</body>
+</html>
