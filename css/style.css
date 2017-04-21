@@ -1,0 +1,23 @@
+.box {
+  border: 1px solid black;
+}
+
+.box h2{
+  text-emphasis: italic;
+}
+
+.Cereal {
+  background-color:#FAA;
+}
+
+.Toy {
+  background-color:#FFF;
+}
+
+.Shoe {
+  background-color:green;
+}
+
+.Mail {
+  background-color:blue;
+}
